@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup, Comment
 
 print('succesfully imported libraries.')
 
+"""
 # rename index files to represent actual content
 html_file_names = [('index-5.html', 'about-us.html'),
                    ('index-6.html', 'our-projects.html'),
@@ -12,7 +13,24 @@ html_file_names = [('index-5.html', 'about-us.html'),
                    ('', ''),
                    ('', ''),
                    ('', '')]
+"""
 
+html_file_names = [('index-5.html', 'link1.html'),
+                   ('index-6.html', 'link2.html'),
+                   ('index-7.html', 'link3.html'),
+                   ('index-8.html', 'link4.html'),
+                   ('', ''),
+                   ('', '')]
+
+# deletes files and folders
+files = ['index3f3a.html',
+         'index-2.html',
+         'index-3.html',
+         'index-4.html',
+         'index7ef4.html',
+         'index96f1.html',
+         'indexe2dc.html']
+"""
 # deletes files and folders
 files = ['index1c4a.html',
          'index-2.html',
@@ -20,7 +38,7 @@ files = ['index1c4a.html',
          'index-4.html',
          'index40a0.html',
          'index970c.html']
-
+"""
 folders = ['xml',
            'other',
            'php',
@@ -117,6 +135,17 @@ for file in range(len(files_html)):
     
 print('Succesfully deleted srcset lines.')
 
+# Utility function to match the extensions in the removal of the wp-content links
+def match_extension(word):
+    if 'jpg' in word:
+        return 'jpg'
+    if 'png' in word:
+        return 'png'
+    if 'svg' in word:
+        return 'svg'
+    if 'mp4' in word:
+        return 'mp4'
+
 # replce words in HTML files
 old_domain = 'localhost'
 new_domain = 'giacomodandria.github.io'
@@ -134,6 +163,25 @@ for i in range(len(files_html)):
     filedata = filedata.replace(old_domain, new_domain)
     filedata = filedata.replace(http, https)
     filedata = filedata.replace(httpss, https)
+
+    filedata_arr = filedata.split('/')
+    for j in range(len(filedata_arr)):
+        if j == len(filedata_arr):
+            break
+        if filedata_arr[j] == 'wp-content':
+            flag = True
+            while flag:
+                if ('.svg' in filedata_arr[j]) or ('.jpg' in filedata_arr[j]) or ('.png' in filedata_arr[j]) or ('.mp4' in filedata_arr[j]):
+                    extension = match_extension(filedata_arr[j])
+                    filedata_arr.insert(j, extension)
+                    flag = False
+                else:
+                    del filedata_arr[j]
+        j += 2
+    filedata = ('/').join(filedata_arr)
+            
+
+
     for j in range(len(html_file_names)):
         if html_file_names[j][0] == '':
             break
@@ -171,6 +219,22 @@ for i in range(len(files_css)):
         filedata = filedata.replace(http, https)
         filedata = filedata.replace(httpss, https)
 
+        filedata_arr = filedata.split('/')
+        for j in range(len(filedata_arr)):
+            if j == len(filedata_arr):
+                break
+            if filedata_arr[j] == 'wp-content':
+                flag = True
+                while flag:
+                    if ('.svg' in filedata_arr[j]) or ('.jpg' in filedata_arr[j]) or ('.png' in filedata_arr[j]) or ('.mp4' in filedata_arr[j]):
+                        extension = match_extension(filedata_arr[j])
+                        filedata_arr.insert(j, extension)
+                        flag = False
+                    else:
+                        del filedata_arr[j]
+            j += 2
+        filedata = ('/').join(filedata_arr)
+
         # Write the file out again
         with open(f'css/{files_css[i]}', 'w') as file:
           file.write(filedata)
@@ -194,7 +258,7 @@ httpss = 'httpss'
 
 for i in range(len(files_js)):
     try:
-        print(f'Working on: {files_js[i]}')
+        print(f'    Working on: {files_js[i]}')
         # Read in the file
         with open(f'js/{files_js[i]}', 'r') as file :
           filedata = file.read()
@@ -203,6 +267,22 @@ for i in range(len(files_js)):
         filedata = filedata.replace(old_domain, new_domain)
         filedata = filedata.replace(http, https)
         filedata = filedata.replace(httpss, https)
+
+        filedata_arr = filedata.split('/')
+        for j in range(len(filedata_arr)):
+            if j == len(filedata_arr):
+                break
+            if filedata_arr[j] == 'wp-content':
+                flag = True
+                while flag:
+                    if ('.svg' in filedata_arr[j]) or ('.jpg' in filedata_arr[j]) or ('.png' in filedata_arr[j]) or ('.mp4' in filedata_arr[j]):
+                        extension = match_extension(filedata_arr[j])
+                        filedata_arr.insert(j, extension)
+                        flag = False
+                    else:
+                        del filedata_arr[j]
+            j += 2
+        filedata = ('/').join(filedata_arr)
 
         # Write the file out again
         with open(f'js/{files_js[i]}', 'w') as file:
