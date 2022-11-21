@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup, Comment
 
 print('succesfully imported libraries.')
 
-"""
 # rename index files to represent actual content
 html_file_names = [('index-5.html', 'about-us.html'),
                    ('index-6.html', 'our-projects.html'),
@@ -13,24 +12,7 @@ html_file_names = [('index-5.html', 'about-us.html'),
                    ('', ''),
                    ('', ''),
                    ('', '')]
-"""
 
-html_file_names = [('index-5.html', 'link1.html'),
-                   ('index-6.html', 'link2.html'),
-                   ('index-7.html', 'link3.html'),
-                   ('index-8.html', 'link4.html'),
-                   ('', ''),
-                   ('', '')]
-
-# deletes files and folders
-files = ['index3f3a.html',
-         'index-2.html',
-         'index-3.html',
-         'index-4.html',
-         'index7ef4.html',
-         'index96f1.html',
-         'indexe2dc.html']
-"""
 # deletes files and folders
 files = ['index1c4a.html',
          'index-2.html',
@@ -38,7 +20,14 @@ files = ['index1c4a.html',
          'index-4.html',
          'index40a0.html',
          'index970c.html']
-"""
+
+# parts that have to be renamed
+old_domain = 'localhost'
+new_domain = 'giacomodandria.github.io'
+http = 'http'
+https = 'https'
+httpss = 'httpss'
+
 folders = ['xml',
            'other',
            'php',
@@ -147,12 +136,6 @@ def match_extension(word):
         return 'mp4'
 
 # replce words in HTML files
-old_domain = 'localhost'
-new_domain = 'giacomodandria.github.io'
-http = 'http'
-https = 'https'
-httpss = 'httpss'
-
 for i in range(len(files_html)):
     print(f'    Working on: {files_html[i]}')
     # Read in the file
@@ -180,8 +163,6 @@ for i in range(len(files_html)):
         j += 2
     filedata = ('/').join(filedata_arr)
             
-
-
     for j in range(len(html_file_names)):
         if html_file_names[j][0] == '':
             break
@@ -200,12 +181,6 @@ files_css = []
 with open('css/filenames.txt', 'r') as filenames:
     for line in filenames:
         files_css.append(line[:len(line)-1])
-
-old_domain = 'localhost'
-new_domain = 'giacomodandria.github.io'
-http = 'http'
-https = 'https'
-httpss = 'httpss'
 
 for i in range(len(files_css)):
     try:
@@ -249,12 +224,6 @@ files_js = []
 with open('js/filenames.txt', 'r') as filenames:
     for line in filenames:
         files_js.append(line[:len(line)-1])
-
-old_domain = 'localhost'
-new_domain = 'giacomodandria.github.io'
-http = 'http'
-https = 'https'
-httpss = 'httpss'
 
 for i in range(len(files_js)):
     try:
