@@ -1,3 +1,11 @@
+import PySimpleGUI as sg
+
+sg.theme('SystemDefault1')
+
+
+
+
+
 import os
 import shutil
 import subprocess
@@ -74,6 +82,27 @@ with open('filenames.txt', 'r') as filenames:
         else:
             pass
 
+# GUI layout --------------------
+layout = [[sg.Text(files_html[num], size =(15, 1)), sg.InputText()] for num in range(len(files_html))]
+
+temp =[[sg.Text('Enter the new domain the website is moving to:')],
+    [sg.InputText(key='-INPUT-')],
+    [sg.Submit(), sg.Cancel()]]
+
+for i in range(len(temp)):
+    layout.append(temp[i])
+
+window = sg.Window('Tidy up website files GUI', layout)
+event, values = window.read()
+window.close()
+
+# rename index files to represent actual content
+html_file_names = []
+for i in range(len(files_html)):
+    html_file_names.append((files_html[i], values[i]+'.html'))
+
+new_domain = values['-INPUT-']
+# GUI layout --------------------
 
 # delete httrack added lines and all comments
 for file in range(len(files_html)):
